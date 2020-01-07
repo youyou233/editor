@@ -17,8 +17,8 @@ interface PlotChoose {//单个选项
     E: string | number;
 }
 @ccclass
-export default class UIManager extends cc.Component {
-    static instance: UIManager = null
+export default class EditorUIManager extends cc.Component {
+    static instance: EditorUIManager = null
 
     @property(cc.Button)
     btn_char: cc.Button = null
@@ -35,9 +35,6 @@ export default class UIManager extends cc.Component {
 
     @property(cc.Button)
     btn_saveItem: cc.Button = null
-
-    @property(cc.Button)
-    btn_loadItem: cc.Button = null
 
     //下载按钮
     @property(cc.Button)
@@ -62,8 +59,9 @@ export default class UIManager extends cc.Component {
     item_prefab: cc.Prefab = null
 
     actionType: ActionType = null
+
     onLoad() {
-        UIManager.instance = this
+        EditorUIManager.instance = this
         //this.setBG()
         this.bindEvent()
         this.init()
@@ -119,7 +117,7 @@ export default class UIManager extends cc.Component {
             return
         }
         let child = this.chooseListContainer.children
-        for (let i = 0; i < child.length; i++) {
+        for (let i = child.length - 1; i >= 0; i--) {
             this.itemPool.put(child[i])
         }
         let length = data ? data.length : +this.input_chooseNum.string
